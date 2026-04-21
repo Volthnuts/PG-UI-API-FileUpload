@@ -5,6 +5,6 @@ Frontend
 
 Backend
 - JDK: Java 25
-- Framework: Spring Boot 4.0.6
+- Framework: Spring Boot 4.0.5
 - IDE: IntelliJ IDEA
 - Build Tool: Maven
