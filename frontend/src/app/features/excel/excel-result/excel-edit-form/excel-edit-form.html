@@ -1,0 +1,101 @@
+<form [formGroup]="resultForm" (ngSubmit)="onSave()">
+    <div class="grid grid-cols-2 gap-8">
+    
+        <!-- คอลัมนืแรก First Name, Gender, Nationality -->
+        <div class="flex flex-col gap-2">
+            <!-- First name -->
+            <div class="flex items-center gap-3">
+                <label class="min-w-25 text-black font-bold text-right">First name <span class="text-red-500">*</span></label>
+                <input type="text" formControlName="first_name" 
+                class="p-2 border border-gray-300 rounded bg-white h-10 w-full outline-none focus:ring-1 focus:ring-cyan-600"
+                [class.border-red-500]="isInvalid('first_name')"
+                >
+            </div>
+            @if (isInvalid('first_name')) {
+                <p class="text-red-500 text-xs font-bold ml-28">Invalid First name</p>
+            }
+
+            <!-- Gender -->
+            <div class="flex items-center gap-3 relative">
+                <label class="min-w-25 text-black font-bold text-right">Gender <span class="text-red-500">*</span></label>
+                <div class="w-full relative">
+                    <select formControlName="gender" 
+                        class="p-2 appearance-none border border-gray-300 rounded-md h-10 w-full bg-white cursor-pointer outline-none focus:ring-1 focus:ring-cyan-600"
+                        [class.border-red-500]="isInvalid('gender')"        
+                    >
+                        <option value=""> </option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Unknown">Unknown</option>
+                    </select>
+                    <div class="absolute right-3 top-3 pointer-events-none text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+            </div>
+            @if (isInvalid('gender')) {
+                <p class="text-red-500 text-xs font-bold ml-28">Invalid Gender</p>
+            }
+
+            <!-- Nationality -->
+            <div class="flex items-center gap-3">
+                <label class="min-w-25 text-black font-bold text-right">Nationality <span class="text-red-500">*</span></label>
+                <input type="text" formControlName="nationality" 
+                    class="p-2 border border-gray-300 rounded bg-white h-10 w-full outline-none focus:ring-1 focus:ring-cyan-600"
+                    [class.border-red-500]="isInvalid('nationality')"
+                >
+            </div>
+            @if (isInvalid('nationality')) {
+                <p class="text-red-500 text-xs font-bold ml-28">Invalid Nationality</p>
+            }
+        </div>
+
+        <!-- คอลัมน์ที่สอง Last Name, Date of Birth -->
+        <div class="flex flex-col gap-2">
+            <!-- Last name -->
+            <div class="flex items-center gap-3">
+                    <label class="min-w-25  text-black font-bold text-right">Last name <span class="text-red-500">*</span></label>
+                    <input type="text" formControlName="last_name" 
+                        class="p-3 border border-gray-300 rounded bg-white h-10 w-full outline-none focus:ring-1 focus:ring-cyan-600"
+                        [class.border-red-500]="isInvalid('last_name')"
+                    >
+            </div>
+            @if (isInvalid('last_name')) {
+                <p class="text-red-500 text-xs font-bold ml-28 mt-1">Invalid Last name</p>
+            }
+
+            <!-- Date of birth -->
+            <div class="flex items-center gap-3">
+                <label class="min-w-25  text-black font-bold text-right">Date of birth <span class="text-red-500">*</span></label>
+                <div class="w-full relative">
+                    <input type="date" formControlName="date_of_birth" 
+                        class="p-3 border border-gray-300 rounded bg-white h-10 w-full outline-none focus:ring-1 focus:ring-cyan-600"
+                        [class.border-red-500]="isInvalid('date_of_birth')"
+                    >
+                </div>
+            </div>
+             @if (isInvalid('date_of_birth')) {
+                <p class="text-red-500 text-xs font-bold ml-28 mt-1">Invalid Date of birth</p>
+            }
+        </div>
+    </div>
+
+
+    <div class="flex justify-end gap-4 mt-12 mb-8">
+        <button type="submit" [disabled]="!isEditing"
+            [class.opacity-50]="!isEditing"
+            class="h-9 bg-cyan-600 pt-2 pb-2 pr-6 pl-6 text-white font-bold 
+            flex items-center justify-center rounded w-25 
+            enabled:hover:bg-cyan-700 enabled:cursor-pointer
+            disabled:cursor-not-allowed"
+        >
+            Save
+        </button>
+        <button type="button" (click)="onClear()"
+                class="h-9 bg-gray-300 pt-2 pb-2 pr-6 pl-6 text-black font-bold 
+                flex items-center justify-center rounded w-25 hover:bg-gray-400 cursor-pointer"
+        >
+            Clear
+        </button>
+    </div>
+</form>

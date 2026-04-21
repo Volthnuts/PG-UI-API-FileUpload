@@ -51,11 +51,11 @@ public class excelControllerImpl implements excelController { // บอกว่
 
     @Override
     public ResponseEntity<Resource> download(
-            @RequestBody List<Map<String, String>> employees, // สมมติว่าส่งข้อมูลมาทาง Body
-            @RequestParam(value = "fileName", defaultValue = "export.xlsx") String fileName // รับชื่อไฟล์จาก URL
+            @RequestBody List<Map<String, String>> data,
+            @RequestParam(value = "filename", defaultValue = "export.xlsx") String fileName // รับชื่อไฟล์จาก URL
     ) throws Exception {
 
-        ByteArrayInputStream in = excelServiceImp.writeExcel(employees);
+        ByteArrayInputStream in = excelServiceImp.writeExcel(data);
 
         // ตรวจสอบนามสกุลไฟล์เผื่อไว้
         if (!fileName.toLowerCase().endsWith(".xlsx")) {

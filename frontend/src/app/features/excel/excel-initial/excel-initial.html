@@ -1,1 +1,104 @@
-<p>excel-initial works!</p>
+<div class="min-h-screen p-8"> <!-- container หลัก -->
+    <div class="p-8 bg-gray-100 rounded-2xl"> <!-- กล่องใส่ปุ่มและหัวข้อ -->
+        <h2 class="text-2xl font-bold text-slate-1000 mb-10">Initial Page</h2>
+        
+        <form [formGroup]="excelForm" (ngSubmit)="onSave()">
+            <!-- form สำหรับกรอกข้อมูล flight-no,file -->
+            <div class="flex flex-wrap items-center justify-between w-full">
+                <!-- ฟิลด์สำหรับกรอก flight no -->
+                <div class="flex items-start gap-2">
+                    <label class="whitespace-nowrap font-medium text-slate-600 pt-1.5 flex min-w-20">
+                        Flight no <span class="text-red-500 ml-1">*</span>
+                    </label>
+
+                    <div class="flex flex-col w-full">
+                        <input type="text"
+                            formControlName="flightNo"
+                            [class.border-red-500]="submitted && excelForm.get('flightNo')?.invalid"
+                            class="border border-gray-300 rounded bg-gray-50 outline-none w-full h-9 p-2 focus:ring-1 focus:ring-cyan-600"
+                        >
+
+                        @if (submitted && excelForm.get('flightNo')?.errors) {
+                            <div class="text-red-500 font-medium mt-1 text-sm">
+                                @if (excelForm.get('flightNo')?.hasError('required')) {
+                                    <span>This field is required</span>
+                                } @else if (excelForm.get('flightNo')?.hasError('pattern')) {
+                                    <span>Invalid flight no format</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- ฟิลด์สำหรับเลือกไฟล์ Excel -->
+                <div class="flex items-start gap-2 w-[60%]">
+    
+                    <label class="whitespace-nowrap font-medium text-slate-600 pt-1.5 flex">
+                        Excel file <span class="text-red-500 ml-1">*</span>
+                    </label>
+
+                    <div class="flex flex-col w-full">
+                        <div class="flex w-full relative">
+                            <input type="text" 
+                                formControlName="fileName"
+                                readonly
+                                [class.border-red-500]="submitted && excelForm.get('fileName')?.invalid"
+                                class="border border-gray-300 rounded-l bg-gray-50 outline-none w-full h-9 p-2 cursor-default"
+                            >
+                            
+                            <button type="button" (click)="fileInput.click()"
+                                class="h-9 bg-cyan-600 px-6 text-white font-bold
+                                flex items-center rounded-r cursor-pointer hover:bg-cyan-700 transition-colors"
+                            >
+                                Browse
+                            </button>
+                            
+                            <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" accept=".xlsx">
+                        </div>
+
+                        @if (submitted && excelForm.get('fileName')?.hasError('required')) {
+                            <div class="text-red-500 font-medium mt-1 text-sm">
+                                This field is required
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @if (errorMsg.length > 0) {
+                <div class="mt-4 flex flex-col">
+                    @for (error of errorMsg; track error) {
+                        <div class="text-red-500 font-medium mt-1 text-sm">
+                            {{ error }}
+                        </div>
+                    }
+                </div>
+            }
+
+            <!-- ปุ่ม save และ cancel -->
+            <div class="flex justify-end gap-3 mt-10">
+                <button type="submit"
+                        [disabled]="!excelForm.dirty && !selectedFile"
+                        [class.opacity-50]="!excelForm.dirty && !selectedFile"
+                        class="h-9 bg-cyan-600 pt-2 pb-2 pr-6 pl-6 text-white font-bold 
+                        flex items-center justify-center rounded w-25 
+                        enabled:hover:bg-cyan-700 enabled:cursor-pointer
+                        disabled:cursor-not-allowed"
+                >
+                    Save
+                </button>
+                <button type="button" (click)="onCancel()"
+                        [disabled]="!excelForm.dirty && !selectedFile"
+                        [class.opacity-50]="!excelForm.dirty && !selectedFile"
+                        class="h-9 bg-gray-300 pt-2 pb-2 pr-6 pl-6 text-black font-bold 
+                        flex items-center justify-center rounded w-25 
+                        enabled:hover:bg-gray-400 enabled:cursor-pointer
+                        disabled:cursor-not-allowed"
+                >
+                    Cancel
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>

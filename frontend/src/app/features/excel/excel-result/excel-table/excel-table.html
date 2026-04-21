@@ -1,1 +1,62 @@
-<p>excel-table works!</p>
+<div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+        <thead class="bg-cyan-700 text-white"> 
+            <tr>
+                <th class="px-4 py-3 text-center border-r border-slate-300/30 w-16">No.</th>
+                <th class="px-2 py-3 border-r border-slate-300/30 w-10"></th> 
+                @for (col of columns; track col.key) {
+                    <th class="px-6 py-3 text-left font-semibold border-r border-slate-300/30 last:border-r-0">
+                        {{ col.label }}
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (row of dataSource; track $index) {
+                <tr [class.bg-white]="$index % 2 === 0" [class.bg-cyan-100]="$index % 2 !== 0" class="border-b border-slate-200">
+                
+                    <td class="px-4 py-3 text-center text-black">
+                        {{ $index + 1 }}
+                    </td>
+
+                    <td class="px-2 py-3 text-center border-l border-slate-200">
+                        <button (click)="onEditRow(row, $index)" class="hover:scale-110 transition-transform cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="black">
+                                <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712Zm-2.218 5.93-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.199Z" />
+                            </svg>
+                        </button>
+                    </td>
+
+                    @for (col of columns; track col) {
+                        <td class="px-6 py-3 text-black border-l border-slate-200">
+                            {{ row[col.key] }}
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="p-8 left-0">
+        <div class="flex items-center gap-2 mb-8 text-xl justify-end">
+            <span class="font-bold text-black text-lg">File >></span>
+            <a 
+                (click)="onDownloadFile()"
+                    class="text-blue-400 font-bold underline text-lg hover:text-blue-500 cursor-pointer">
+                {{ filename }}
+            </a>
+        </div>
+
+        <div class="flex mt-5 justify-end">
+            <button type="button" 
+                    (click)="onCancel()"
+                    class = "h-9 bg-cyan-600 pt-2 pb-2 pr-6 pl-6 text-white font-bold 
+                    flex items-center justify-center rounded w-25 cursor-pointer hover:bg-cyan-700"
+            >
+                Cancel
+            </button>
+        </div>
+    </div>
+
+</div>

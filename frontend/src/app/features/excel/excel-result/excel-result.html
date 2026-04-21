@@ -1,1 +1,16 @@
-<p>excel-result works!</p>
+<div class="min-h-screen p-8"> <!-- container หลัก -->
+    <div class="p-8 bg-gray-100 rounded-2xl"> <!-- กล่องใส่ปุ่มและหัวข้อ -->
+        <h2 class="text-2xl font-bold text-slate-1000 mb-10">Result Page</h2>
+        
+        <app-excel-edit-form 
+            [selectedData]="selectedRowData"
+            (clear)="clearEditedData($event)"
+            (update)="updateData($event)"
+        />
+        <app-excel-table
+            [dataSource]="resultData",
+            [filename]="filename",
+            (edit)="handleEdit($event)"
+        />
+    </div>
+</div>

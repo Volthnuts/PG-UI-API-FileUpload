@@ -13,10 +13,10 @@ public class excelValidator {
         List<String> invalidFields = new ArrayList<>();
 
         // เช็ค firstname/lastname
-        if (!isNameValid(rowData.get("firstname"))) {
+        if (!isNameValid(rowData.get("first_name"))) {
             invalidFields.add("First name");
         }
-        if (!isNameValid(rowData.get("lastname"))) {
+        if (!isNameValid(rowData.get("last_name"))) {
             invalidFields.add("Last name");
         }
 
@@ -26,7 +26,7 @@ public class excelValidator {
         }
 
         // เช็ควันเกิด
-        if (!isDateOfBirthValid(rowData.get("dateofbirth"))) {
+        if (!isDateOfBirthValid(rowData.get("date_of_birth"))) {
             invalidFields.add("Date of birth");
         }
 

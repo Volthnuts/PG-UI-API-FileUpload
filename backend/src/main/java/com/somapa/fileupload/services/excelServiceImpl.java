@@ -39,7 +39,7 @@ public class excelServiceImpl implements excelService {
                 String headerValue = formatter.formatCellValue(cell) // format ค่าให้เป็น string
                         .trim()             // ลบ space หัว-ท้าย
                         .toLowerCase()      // ทำเป็นตัวพิมพ์เล็ก
-                        .replaceAll("\\s+", ""); // ลบ space ทุกจุ
+                        .replaceAll("\\s+", "_"); // แปลง space เป็น _
 
                 headers.add(headerValue); // เพิ่มค่าลงไปใน array headers
             }
@@ -72,11 +72,6 @@ public class excelServiceImpl implements excelService {
                 rowData.put(columnName, cellValue); // นำ key และ value ที่ได้มาใส่ใน rowData
 
             }
-
-            System.out.println("--- Debug Row: " + (i) + " ---");
-            rowData.forEach((key, value) -> {
-                System.out.println("Key: [" + key + "] | Value: [" + value + "]");
-            });
 
             List<String> invalidFields = excelValidator.validate(rowData);
 
